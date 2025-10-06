@@ -21,14 +21,12 @@ public class OwnerService {
     private final OwnerRepository ownerRepository;
     private final OwnerMapper ownerMapper;
     private final PetService petService;
-    private final ApplicationEventPublisher eventPublisher;
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    public OwnerService(OwnerRepository ownerRepository, OwnerMapper ownerMapper, PetService petService, ApplicationEventPublisher eventPublisher, ApplicationEventPublisher applicationEventPublisher) {
+    public OwnerService(OwnerRepository ownerRepository, OwnerMapper ownerMapper, PetService petService, ApplicationEventPublisher applicationEventPublisher) {
         this.ownerRepository = ownerRepository;
         this.ownerMapper = ownerMapper;
         this.petService = petService;
-        this.eventPublisher = eventPublisher;
         this.applicationEventPublisher = applicationEventPublisher;
     }
 

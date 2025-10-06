@@ -1,75 +1,71 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.DynamicTest.dynamicTest;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
-import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.json.JsonCompareMode.LENIENT;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Stream;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.TestcontainersConfiguration;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.AddOwnerRequest;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.UpdateOwnerRequest;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.response.OwnerResponse;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.domain.Owner;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.domain.OwnerFixtures;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.repository.OwnerRepository;
+import org.assertj.core.api.InstanceOfAssertFactories;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
 
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.OwnerService;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.AddOwnerRequest;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.UpdateOwnerRequest;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.response.OwnerResponse;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.DynamicTest.dynamicTest;
+import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.json.JsonCompareMode.LENIENT;
 
-@WebMvcTest(OwnerController.class)
+@AutoConfigureMockMvc
+@Import(TestcontainersConfiguration.class)
+@SpringBootTest
 class OwnerControllerTest {
     @Autowired
     MockMvcTester mockMvc;
     @Autowired
     ObjectMapper objectMapper;
 
-    @MockitoBean
-    OwnerService ownerService;
+    @Autowired
+    OwnerRepository ownerRepository;
+
+    @BeforeEach
+    void setUp() {
+        ownerRepository.deleteAll();
+    }
 
     @Test
     void listOwners() {
-        List<OwnerResponse> owners = List.of(
-                new OwnerResponse(1, "Wouter", Map.of("DOG", List.of("Roxy"))),
-                new OwnerResponse(2, "Josh", Map.of()),
-                new OwnerResponse(3, "Alina", Map.of()),
-                new OwnerResponse(4, "Venkat", Map.of()),
-                new OwnerResponse(5, "Patrick", Map.of())
-        );
+        List<Owner> owners = ownerRepository.saveAll(OwnerFixtures.getOwnersJpa(5));
 
-        when(ownerService.getOwners(any(Pageable.class))).thenReturn(
-                new PageImpl<>(owners)
-        );
+        List<OwnerResponse> result = owners.stream()
+                .map(o -> new OwnerResponse(o.getId(), o.getName(), Map.of()))
+                .toList();
 
         assertThat(mockMvc.get().uri("/owners"))
                 .hasStatus(OK)
                 .bodyJson()
-                .withResourceLoadClass(null)
-                .isEqualTo("all-owners-paged.json", LENIENT);
+                .extractingPath("content")
+                .convertTo(InstanceOfAssertFactories.list(OwnerResponse.class))
+                .containsExactlyElementsOf(result);
     }
 
     @Test
     void getOwnerWithExistingOwner_returnsExpected() throws Exception {
-        OwnerResponse ownerResponse = new OwnerResponse(1, "Wouter", Map.of("DOG", List.of("Roxy")));
-        when(ownerService.getOwnerById(anyInt())).thenReturn(Optional.of(ownerResponse));
+        Owner owner = ownerRepository.save(OwnerFixtures.anOwnerJpa());
+        OwnerResponse ownerResponse = new OwnerResponse(owner.getId(), owner.getName(), Map.of());
 
         assertThat(mockMvc.get().uri("/owners/%d".formatted(ownerResponse.getId())))
                 .hasStatus(OK)
@@ -79,8 +75,6 @@ class OwnerControllerTest {
 
     @Test
     void getOwnerWithNonExistingOwner_returns404() {
-        when(ownerService.getOwnerById(anyInt())).thenReturn(Optional.empty());
-
         assertThat(mockMvc.get().uri("/owners/666"))
                 .hasStatus(404);
     }
@@ -107,9 +101,6 @@ class OwnerControllerTest {
     @Test
     void addOwner_returnsExpected() throws Exception {
         AddOwnerRequest addOwner = new AddOwnerRequest("Mario");
-        OwnerResponse createdOwner = new OwnerResponse(13, "Mario", Map.of());
-
-        when(ownerService.addOwner(any(AddOwnerRequest.class))).thenReturn(createdOwner);
 
         assertThat(
                 mockMvc.post().uri("/owners")
@@ -117,27 +108,35 @@ class OwnerControllerTest {
                         .content(objectMapper.writeValueAsString(addOwner))
         ).hasStatus(CREATED)
                 .bodyJson()
-                .isEqualTo(objectMapper.writeValueAsString(createdOwner));
+                .hasPathSatisfying("$.id", value -> value.assertThat().isNotNull())
+                .hasPathSatisfying("$.name", value -> value.assertThat().isEqualTo(addOwner.name()))
+                .extractingPath("id")
+                .convertTo(Integer.class)
+                .satisfies(id -> assertThat(ownerRepository.findById(id))
+                        .hasValueSatisfying(o -> assertThat(o.getName()).isEqualTo(addOwner.name()))
+                );
     }
 
     @Test
-    void updateOwner_callsService() throws Exception{
+    void updateOwner_callsService() throws Exception {
+        Owner owner = ownerRepository.save(OwnerFixtures.anOwnerJpa());
         UpdateOwnerRequest updateOwner = new UpdateOwnerRequest("Maria");
         assertThat(
-                mockMvc.put().uri("/owners/13")
+                mockMvc.put().uri("/owners/%d".formatted(owner.getId()))
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updateOwner))
         ).hasStatus(NO_CONTENT);
 
-        verify(ownerService).updateOwner(13, updateOwner);
+        assertThat(ownerRepository.findById(owner.getId()))
+                .hasValueSatisfying(o -> assertThat(o.getName()).isEqualTo("Maria"));
     }
 
     @Test
     void deleteOwner_callsService() {
+        Owner owner = ownerRepository.save(OwnerFixtures.anOwnerJpa());
         assertThat(
-                mockMvc.delete().uri("/owners/13")
+                mockMvc.delete().uri("/owners/%d".formatted(owner.getId()))
         ).hasStatus(NO_CONTENT);
-
-        verify(ownerService).deleteOwner(13);
+        assertThat(ownerRepository.findById(owner.getId())).isEmpty();
     }
 }

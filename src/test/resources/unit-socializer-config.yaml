@@ -2,5 +2,6 @@ unit-socializer:
     packages:
     classes:
       - "org.springframework.web.client.RestTemplate"
+      - "org.springframework.context.ApplicationEventPublisher"
     annotations:
       - "org.springframework.stereotype.Repository"
