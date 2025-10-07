@@ -10,11 +10,11 @@
     </parent>
 
     <groupId>io.github.wouter-bauweraerts.samples</groupId>
-    <artifactId>spring-pet-adoption</artifactId>
+    <artifactId>sociable-pet-adoption</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>spring-pet-adoption</name>
-    <description>Sample application for demonstrating different approaches to create test data</description>
+    <name>sociable-pet-adoption</name>
+    <description>Sample application for demonstrating different approaches to write unit tests</description>
 
     <properties>
         <java.version>21</java.version>
