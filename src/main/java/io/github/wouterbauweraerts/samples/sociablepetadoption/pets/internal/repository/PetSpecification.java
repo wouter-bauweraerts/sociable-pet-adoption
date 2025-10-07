@@ -1,7 +1,7 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository;
 
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.Pet;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;

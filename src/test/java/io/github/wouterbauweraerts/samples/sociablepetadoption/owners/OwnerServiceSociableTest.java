@@ -10,7 +10,7 @@ import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.r
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetService;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.PetMapper;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetFixtureBuilder;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetType;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository.PetRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;

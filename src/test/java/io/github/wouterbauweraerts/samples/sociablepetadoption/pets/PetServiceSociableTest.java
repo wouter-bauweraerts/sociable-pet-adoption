@@ -24,8 +24,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType.CAT;
-import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType.DOG;
+import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetType.CAT;
+import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetType.DOG;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;

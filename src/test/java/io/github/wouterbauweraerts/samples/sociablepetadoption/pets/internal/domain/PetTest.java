@@ -2,7 +2,7 @@ package io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.do
 
 import org.junit.jupiter.api.Test;
 
-import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType.DOG;
+import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetType.DOG;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PetTest {

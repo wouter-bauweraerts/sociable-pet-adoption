@@ -7,7 +7,6 @@ import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.request.
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.response.PetResponse;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.PetMapper;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.Pet;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository.PetRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

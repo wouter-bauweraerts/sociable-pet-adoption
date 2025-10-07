@@ -1,7 +1,7 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.request;
 
 import io.github.wouterbauweraerts.samples.sociablepetadoption.common.ValueOfEnum;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetType;
 
 import java.util.List;
 

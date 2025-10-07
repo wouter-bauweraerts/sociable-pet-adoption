@@ -3,7 +3,7 @@ package io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.request.AddPetRequest;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.response.PetResponse;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.Pet;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetType;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
@@ -13,7 +13,7 @@ import org.springframework.data.util.Pair;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType.DOG;
+import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetType.DOG;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 

@@ -2,7 +2,7 @@ package io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.request
 
 import io.github.wouterbauweraerts.instancio.fixture.builder.GenerateFixtureBuilder;
 import io.github.wouterbauweraerts.instancio.fixture.builder.InstancioModel;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetType;
 import org.instancio.Instancio;
 import org.instancio.Model;
 

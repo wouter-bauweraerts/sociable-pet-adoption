@@ -12,7 +12,7 @@ import org.springframework.data.util.Pair;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType.*;
+import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetType.*;
 import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository.PetSpecification.adoptablePetSearchSpecification;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
