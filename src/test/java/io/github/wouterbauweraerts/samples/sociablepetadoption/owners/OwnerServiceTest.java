@@ -1,19 +1,14 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.owners;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.AddOwnerRequest;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.UpdateOwnerRequest;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.response.OwnerResponse;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.events.OwnerDeletedEvent;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.OwnerMapper;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.domain.Owner;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.repository.OwnerRepository;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetService;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -25,15 +20,14 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.AddOwnerRequest;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.UpdateOwnerRequest;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.response.OwnerResponse;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.events.OwnerDeletedEvent;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.OwnerMapper;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.domain.Owner;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.repository.OwnerRepository;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetService;
-import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class OwnerServiceTest {

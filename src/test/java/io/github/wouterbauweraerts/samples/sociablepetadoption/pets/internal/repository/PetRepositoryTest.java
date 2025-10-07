@@ -1,22 +1,7 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository;
 
-import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType.CAT;
-import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType.DOG;
-import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType.GOAT;
-import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType.HAMSTER;
-import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType.TURTLE;
-import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository.PetSpecification.adoptablePetSearchSpecification;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.DynamicTest.dynamicTest;
-
-import java.util.List;
-import java.util.stream.Stream;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestFactory;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.Pet;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +9,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.util.Pair;
 
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.Pet;
+import java.util.List;
+import java.util.stream.Stream;
+
+import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType.*;
+import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository.PetSpecification.adoptablePetSearchSpecification;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
 @DataJpaTest
 class PetRepositoryTest {

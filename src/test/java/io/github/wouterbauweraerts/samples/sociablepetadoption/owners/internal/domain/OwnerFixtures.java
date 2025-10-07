@@ -29,4 +29,8 @@ public class OwnerFixtures {
                 .ignore(field(Owner::getId))
                 .create();
     }
+
+    public static Owner anOwner() {
+        return Instancio.create(OWNER_MODEL);
+    }
 }

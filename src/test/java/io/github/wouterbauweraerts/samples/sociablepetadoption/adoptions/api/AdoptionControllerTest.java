@@ -1,73 +1,69 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.DynamicTest.dynamicTest;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
-import static org.springframework.http.HttpStatus.OK;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.TestcontainersConfiguration;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.event.PetAdoptedEvent;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.request.AdoptPetCommand;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.domain.Owner;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.domain.OwnerFixtures;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.repository.OwnerRepository;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.Pet;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetFixtures;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository.PetRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestFactory;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.event.ApplicationEvents;
+import org.springframework.test.context.event.RecordApplicationEvents;
+import org.springframework.test.web.servlet.assertj.MockMvcTester;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestFactory;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.web.servlet.assertj.MockMvcTester;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.DynamicTest.dynamicTest;
+import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.AdoptionService;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.exceptions.OwnerNotFoundException;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.exceptions.PetNotFoundException;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.request.AdoptPetCommand;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.request.AdoptablePetSearch;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetService;
-
-@WebMvcTest(AdoptionController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
+@RecordApplicationEvents
+@ExtendWith(MockitoExtension.class)
+@Import(TestcontainersConfiguration.class)
 class AdoptionControllerTest {
     @Autowired
     MockMvcTester mockMvc;
     @Autowired
     ObjectMapper objectMapper;
 
-    @MockitoBean
-    PetService petService;
-    @MockitoBean
-    AdoptionService adoptionService;
+    @Autowired
+    PetRepository petRepository;
+    @Autowired
+    OwnerRepository ownerRepository;
 
-    @Captor
-    ArgumentCaptor<AdoptablePetSearch> searchCaptor;
+    @BeforeEach
+    void setUp() {
+        petRepository.deleteAll();
+        ownerRepository.deleteAll();
+    }
 
     @Test
     void searchAdoptablePetWithoutParametersReturnsOk() {
         assertThat(mockMvc.get().uri("/adoptions/search"))
                 .hasStatus(OK);
-
-        verify(petService).searchAdoptablePets(searchCaptor.capture(), any(Pageable.class));
-
-        assertThat(searchCaptor.getValue())
-                .returns(List.of(), AdoptablePetSearch::getTypes)
-                .returns(List.of(), AdoptablePetSearch::getNames);
     }
 
     @Test
     void searchAdoptablePetWithoutInvalidType_returnsBadRequest() {
         assertThat(mockMvc.get().uri("/adoptions/search").queryParam("types", "CAR"))
                 .hasStatus(BAD_REQUEST);
-
-        verifyNoInteractions(petService);
     }
 
     @Test
@@ -77,12 +73,6 @@ class AdoptionControllerTest {
                         .uri("/adoptions/search")
                         .queryParam("types", "DOG", "CAT")
         ).hasStatus(OK);
-
-        verify(petService).searchAdoptablePets(searchCaptor.capture(), any(Pageable.class));
-
-        assertThat(searchCaptor.getValue())
-                .returns(List.of("DOG", "CAT"), AdoptablePetSearch::getTypes)
-                .returns(List.of(), AdoptablePetSearch::getNames);
     }
 
     @Test
@@ -93,12 +83,6 @@ class AdoptionControllerTest {
                         .queryParam("types", "DOG", "CAT")
                         .queryParam("names", "Roxy", "Rex")
         ).hasStatus(OK);
-
-        verify(petService).searchAdoptablePets(searchCaptor.capture(), any(Pageable.class));
-
-        assertThat(searchCaptor.getValue())
-                .returns(List.of("DOG", "CAT"), AdoptablePetSearch::getTypes)
-                .returns(List.of("Roxy", "Rex"), AdoptablePetSearch::getNames);
     }
 
     @TestFactory
@@ -118,43 +102,51 @@ class AdoptionControllerTest {
                                     .contentType(APPLICATION_JSON)
                                     .content(objectMapper.writeValueAsString(req))
                     ).hasStatus(BAD_REQUEST);
-
-                    verifyNoInteractions(adoptionService);
                 }
         ));
     }
 
     @TestFactory
     Stream<DynamicTest> adoptWithValidRequest_callsService_whenServiceThrows_thenBadRequest() {
-        AdoptPetCommand adoptPetCommand = new AdoptPetCommand(1, 1);
+        Pet pet = petRepository.save(PetFixtures.getAdoptableJpaPet());
+        Owner owner = ownerRepository.save(OwnerFixtures.anOwnerJpa());
+
         return Stream.of(
-                new PetNotFoundException("Pet %d is not available for adoption.".formatted(adoptPetCommand.petId())),
-                new OwnerNotFoundException("Owner %d is not available for adoption.".formatted(adoptPetCommand.ownerId()))
-        ).map(ex -> dynamicTest(
-                "When service throws %s, controller returns HTTP400".formatted(ex.getClass().getSimpleName()),
+                new AdoptPetCommand(owner.getId() +1, pet.getId()),
+                new AdoptPetCommand(owner.getId(), pet.getId() +1)
+        ).map(cmd -> dynamicTest(
+                "When pet or owner not found, controller returns HTTP400",
                 () -> {
-
-                    doThrow(ex).when(adoptionService).adopt(any(AdoptPetCommand.class));
-
                     assertThat(
                             mockMvc.post().uri("/adoptions")
                                     .contentType(APPLICATION_JSON)
-                                    .content(objectMapper.writeValueAsString(adoptPetCommand))
+                                    .content(objectMapper.writeValueAsString(cmd))
                     ).hasStatus(BAD_REQUEST);
                 }
         ));
     }
 
     @Test
-    void adoptPet_noExceptionThrown_returnsNoContent() throws Exception{
-        AdoptPetCommand adoptPetCommand = new AdoptPetCommand(13, 666);
+    void adoptPet_noExceptionThrown_returnsNoContent(ApplicationEvents publishedEvents) throws Exception{
+        Pet pet = petRepository.save(PetFixtures.getAdoptableJpaPet());
+        Owner owner = ownerRepository.save(OwnerFixtures.anOwnerJpa());
 
-        doNothing().when(adoptionService).adopt(any(AdoptPetCommand.class));
+        AdoptPetCommand adoptPetCommand = new AdoptPetCommand(owner.getId(), pet.getId());
 
         assertThat(
                 mockMvc.post().uri("/adoptions")
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(adoptPetCommand))
         ).hasStatus(NO_CONTENT);
+
+        // Stream over all ApplicationEvents and filter by the packagename
+        // I only want to know about events from my own code, not Spring or jUnit
+        List<Object> applicationEvents = publishedEvents.stream(Object.class)
+                .filter(e -> e.getClass().getPackageName().startsWith("io.github.wouterbauweraerts"))
+                .toList();
+        assertThat(applicationEvents)
+                .containsExactly(
+                new PetAdoptedEvent(owner.getId(), pet.getId())
+        );
     }
 }

@@ -1,12 +1,5 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.owners;
 
-import java.util.Optional;
-
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.AddOwnerRequest;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.UpdateOwnerRequest;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.response.OwnerResponse;
@@ -15,6 +8,12 @@ import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.r
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class OwnerService {

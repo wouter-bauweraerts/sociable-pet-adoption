@@ -1,20 +1,5 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.pets;
 
-import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository.PetSpecification.adoptablePetSearchSpecification;
-import static java.util.Optional.empty;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.modulith.events.ApplicationModuleListener;
-import org.springframework.stereotype.Service;
-
 import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.event.PetAdoptedEvent;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.request.AdoptablePetSearch;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.events.OwnerDeletedEvent;
@@ -24,6 +9,20 @@ import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.Pet
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.Pet;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository.PetRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.modulith.events.ApplicationModuleListener;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository.PetSpecification.adoptablePetSearchSpecification;
+import static java.util.Optional.empty;
 
 @Service
 public class PetService {

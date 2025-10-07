@@ -1,11 +1,11 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.common;
 
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
 
 public class ValueOfEnumValidator implements ConstraintValidator<ValueOfEnum, CharSequence> {
     private List<String> acceptedValues;

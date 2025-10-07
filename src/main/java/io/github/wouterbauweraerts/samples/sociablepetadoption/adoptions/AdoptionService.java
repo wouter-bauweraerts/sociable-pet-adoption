@@ -1,8 +1,5 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions;
 
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.stereotype.Service;
-
 import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.exceptions.OwnerNotFoundException;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.exceptions.PetNotFoundException;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.request.AdoptPetCommand;
@@ -10,6 +7,8 @@ import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.interna
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.OwnerService;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetService;
 import jakarta.transaction.Transactional;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AdoptionService {

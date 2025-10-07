@@ -1,13 +1,12 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.repository;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.domain.Owner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.domain.Owner;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 class OwnerRepositoryTest {

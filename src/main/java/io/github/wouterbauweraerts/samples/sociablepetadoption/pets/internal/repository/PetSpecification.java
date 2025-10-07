@@ -1,15 +1,14 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Stream;
-
-import org.springframework.data.jpa.domain.Specification;
-
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.Pet;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import org.springframework.data.jpa.domain.Specification;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 public class PetSpecification {
     private PetSpecification() {

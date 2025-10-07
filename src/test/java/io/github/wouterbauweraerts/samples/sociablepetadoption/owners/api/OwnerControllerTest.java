@@ -27,7 +27,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.json.JsonCompareMode.LENIENT;
 
 @AutoConfigureMockMvc
 @Import(TestcontainersConfiguration.class)

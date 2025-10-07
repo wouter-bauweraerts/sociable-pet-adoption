@@ -34,4 +34,17 @@ public class PetFixtures {
                 .ignore(field(Pet::getOwnerId))
                 .create();
     }
+
+    public static Pet getAdoptableJpaPet() {
+        return Instancio.of(PET_MODEL)
+                .ignore(field(Pet::getId))
+                .ignore(field(Pet::getOwnerId))
+                .create();
+    }
+
+    public static Pet getAdoptablePet() {
+        return Instancio.of(PET_MODEL)
+                .ignore(field(Pet::getOwnerId))
+                .create();
+    }
 }

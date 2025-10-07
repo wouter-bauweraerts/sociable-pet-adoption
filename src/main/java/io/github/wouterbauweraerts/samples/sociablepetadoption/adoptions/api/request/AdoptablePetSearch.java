@@ -1,9 +1,9 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.request;
 
-import java.util.List;
-
 import io.github.wouterbauweraerts.samples.sociablepetadoption.common.ValueOfEnum;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType;
+
+import java.util.List;
 
 public class AdoptablePetSearch {
     private List<@ValueOfEnum(enumClass = PetType.class) String> types = List.of();

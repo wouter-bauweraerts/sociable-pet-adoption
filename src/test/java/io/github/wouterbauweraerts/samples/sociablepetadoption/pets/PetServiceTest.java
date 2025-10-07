@@ -1,21 +1,12 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.pets;
 
-import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType.CAT;
-import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType.DOG;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.when;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Stream;
-
+import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.event.PetAdoptedEvent;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.events.OwnerDeletedEvent;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.request.AddPetRequest;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.response.PetResponse;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.PetMapper;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.Pet;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository.PetRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -29,13 +20,18 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.event.PetAdoptedEvent;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.events.OwnerDeletedEvent;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.request.AddPetRequest;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.response.PetResponse;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.PetMapper;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.Pet;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository.PetRepository;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType.CAT;
+import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetType.DOG;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PetServiceTest {
