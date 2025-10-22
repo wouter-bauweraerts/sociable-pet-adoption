@@ -5,10 +5,10 @@ import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.exc
 import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.exceptions.PetNotFoundException;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.request.AdoptPetCommand;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.internal.AdoptionMapper;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.OwnerResponse;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.OwnerService;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.response.OwnerResponse;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetResponse;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetService;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.response.PetResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;

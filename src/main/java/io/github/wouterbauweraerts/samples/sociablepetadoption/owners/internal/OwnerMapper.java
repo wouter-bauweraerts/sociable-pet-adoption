@@ -1,8 +1,8 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal;
 
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.OwnerResponse;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.AddOwnerRequest;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.UpdateOwnerRequest;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.response.OwnerResponse;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.events.OwnerDeletedEvent;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.domain.Owner;
 import org.mapstruct.Mapper;

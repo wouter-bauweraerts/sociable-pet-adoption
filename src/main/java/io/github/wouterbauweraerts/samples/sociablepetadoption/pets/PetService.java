@@ -2,9 +2,9 @@ package io.github.wouterbauweraerts.samples.sociablepetadoption.pets;
 
 import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.event.PetAdoptedEvent;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.request.AdoptablePetSearch;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.common.PetType;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.events.OwnerDeletedEvent;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.request.AddPetRequest;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.response.PetResponse;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.PetMapper;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.Pet;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository.PetRepository;

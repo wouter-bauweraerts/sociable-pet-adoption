@@ -1,8 +1,8 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api;
 
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetResponse;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetService;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.request.AddPetRequest;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.response.PetResponse;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

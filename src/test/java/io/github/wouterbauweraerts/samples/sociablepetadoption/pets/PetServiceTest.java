@@ -3,7 +3,6 @@ package io.github.wouterbauweraerts.samples.sociablepetadoption.pets;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.event.PetAdoptedEvent;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.events.OwnerDeletedEvent;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.request.AddPetRequest;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.response.PetResponse;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.PetMapper;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.Pet;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository.PetRepository;
@@ -25,8 +24,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetType.CAT;
-import static io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetType.DOG;
+import static io.github.wouterbauweraerts.samples.sociablepetadoption.common.PetType.CAT;
+import static io.github.wouterbauweraerts.samples.sociablepetadoption.common.PetType.DOG;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;

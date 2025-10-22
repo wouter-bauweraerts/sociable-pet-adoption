@@ -1,9 +1,9 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api;
 
+import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.OwnerResponse;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.OwnerService;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.AddOwnerRequest;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.UpdateOwnerRequest;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.response.OwnerResponse;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,4 +1,4 @@
-package io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.response;
+package io.github.wouterbauweraerts.samples.sociablepetadoption.owners;
 
 import java.util.List;
 import java.util.Map;

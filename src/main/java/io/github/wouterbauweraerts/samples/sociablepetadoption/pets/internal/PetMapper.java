@@ -1,7 +1,7 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal;
 
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetResponse;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.request.AddPetRequest;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api.response.PetResponse;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.Pet;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

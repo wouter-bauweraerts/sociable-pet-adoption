@@ -1,6 +1,6 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain;
 
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetType;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.common.PetType;
 import jakarta.persistence.*;
 
 import java.util.Objects;

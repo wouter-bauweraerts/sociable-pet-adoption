@@ -1,8 +1,8 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.owners;
 
+import io.github.wouterbauweraerts.samples.sociablepetadoption.common.PetType;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.AddOwnerRequest;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.UpdateOwnerRequest;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.response.OwnerResponse;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.events.OwnerDeletedEvent;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.OwnerMapper;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.OwnerMapperImpl;
@@ -11,7 +11,6 @@ import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.internal.r
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.PetMapper;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.PetMapperImpl;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.domain.PetFixtureBuilder;
-import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetType;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.internal.repository.PetRepository;
 import io.github.wouterbauweraerts.unitsocializer.core.annotations.InjectTestInstance;
 import io.github.wouterbauweraerts.unitsocializer.core.annotations.Resolve;
