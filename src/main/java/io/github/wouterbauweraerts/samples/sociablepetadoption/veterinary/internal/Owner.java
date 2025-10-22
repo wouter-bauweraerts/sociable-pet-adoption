@@ -71,7 +71,7 @@ public class Owner {
         this.pets = pets;
     }
 
-    public void addPet(Pet pet) {
+    public void adoptPet(Pet pet) {
         this.pets.add(pet);
         pet.setOwner(this);
     }

@@ -1,5 +1,6 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.veterinary;
 
+import io.github.wouterbauweraerts.samples.sociablepetadoption.TestClockConfig;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.event.PetAdoptedEvent;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.common.PetType;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.OwnerResponse;
@@ -14,11 +15,13 @@ import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.modulith.test.Scenario;
 import org.springframework.test.context.jdbc.Sql;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
@@ -26,6 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TEST_METHOD;
 
 @ApplicationModuleTest(mode = ApplicationModuleTest.BootstrapMode.DIRECT_DEPENDENCIES)
+@Import(TestClockConfig.class)
 class VeterinaryServicePetAdoptedTest {
     @Autowired
     PetService petService;
@@ -63,6 +67,7 @@ class VeterinaryServicePetAdoptedTest {
                                     softly.assertThat(pet.getPetId()).isEqualTo(roxy.id());
                                     softly.assertThat(pet.getName()).isEqualTo(roxy.name());
                                     softly.assertThat(pet.getType()).isEqualTo(PetType.valueOf(roxy.type()));
+                                    softly.assertThat(pet.getLastVetCheck()).isEqualTo(LocalDate.of(2025, 11, 12));
                                 });
                     });
                 });

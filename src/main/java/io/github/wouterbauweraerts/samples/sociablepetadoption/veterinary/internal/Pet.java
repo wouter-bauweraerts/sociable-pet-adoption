@@ -4,6 +4,8 @@ import io.github.wouterbauweraerts.samples.sociablepetadoption.common.PetType;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetResponse;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity(name = "VetPet")
@@ -26,19 +28,22 @@ public class Pet {
     @JoinColumn(name = "owner_id")
     private Owner owner;
 
-    public static Pet fromPetResponse(PetResponse petResponse) {
-        return new Pet(null, petResponse.id(), petResponse.name(), PetType.valueOf(petResponse.type()), null);
+    private LocalDate lastVetCheck;
+
+    public static Pet fromPetResponse(PetResponse petResponse, LocalDate timestamp) {
+        return new Pet(null, petResponse.id(), petResponse.name(), PetType.valueOf(petResponse.type()), null, timestamp);
     }
 
     public Pet() {
     }
 
-    public Pet(Integer internalId, Integer petId, String name, PetType type, Owner owner) {
+    public Pet(Integer internalId, Integer petId, String name, PetType type, Owner owner, LocalDate lastVetCheck) {
         this.internalId = internalId;
         this.petId = petId;
         this.name = name;
         this.type = type;
         this.owner = owner;
+        this.lastVetCheck = lastVetCheck;
     }
 
     public Integer getInternalId() {
@@ -79,5 +84,13 @@ public class Pet {
 
     public void setOwner(Owner owner) {
         this.owner = owner;
+    }
+
+    public LocalDate getLastVetCheck() {
+        return lastVetCheck;
+    }
+
+    public void registerVetCheck(LocalDate lastVetCheck) {
+        this.lastVetCheck = lastVetCheck;
     }
 }

@@ -4,12 +4,16 @@ import io.github.wouterbauweraerts.samples.sociablepetadoption.adoptions.api.eve
 import io.github.wouterbauweraerts.samples.sociablepetadoption.common.NotFoundException;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.OwnerResponse;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.OwnerService;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetResponse;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetService;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.veterinary.internal.Owner;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.veterinary.internal.OwnerRepository;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.veterinary.internal.Pet;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
+
+import java.time.Clock;
+import java.time.LocalDate;
 
 @Service
 public class VeterinaryService {
@@ -18,10 +22,13 @@ public class VeterinaryService {
     private final OwnerService ownerService;
     private final PetService petService;
 
-    public VeterinaryService(OwnerRepository ownerRepository, OwnerService ownerService, PetService petService) {
+    private final Clock clock;
+
+    public VeterinaryService(OwnerRepository ownerRepository, OwnerService ownerService, PetService petService, Clock clock) {
         this.ownerRepository = ownerRepository;
         this.ownerService = ownerService;
         this.petService = petService;
+        this.clock = clock;
     }
 
     @ApplicationModuleListener
@@ -32,8 +39,8 @@ public class VeterinaryService {
             return Owner.fromOwnerResponse(ownerResponse);
         });
 
-        owner.addPet(
-                petService.getPet(event.petId()).map(Pet::fromPetResponse)
+        owner.adoptPet(
+                petService.getPet(event.petId()).map((PetResponse petResponse) -> Pet.fromPetResponse(petResponse, LocalDate.now(clock)))
                         .orElseThrow(() -> NotFoundException.withTypeAndId("PET", event.petId()))
         );
 
