@@ -9,6 +9,8 @@ import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetService;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.veterinary.internal.Owner;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.veterinary.internal.OwnerRepository;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.veterinary.internal.Pet;
+import io.github.wouterbauweraerts.samples.sociablepetadoption.veterinary.internal.PetRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +20,16 @@ import java.time.LocalDate;
 @Service
 public class VeterinaryService {
     private final OwnerRepository ownerRepository;
+    private final PetRepository petRepository;
 
     private final OwnerService ownerService;
     private final PetService petService;
 
     private final Clock clock;
 
-    public VeterinaryService(OwnerRepository ownerRepository, OwnerService ownerService, PetService petService, Clock clock) {
+    public VeterinaryService(OwnerRepository ownerRepository, PetRepository petRepository, OwnerService ownerService, PetService petService, Clock clock) {
         this.ownerRepository = ownerRepository;
+        this.petRepository = petRepository;
         this.ownerService = ownerService;
         this.petService = petService;
         this.clock = clock;
@@ -45,5 +49,15 @@ public class VeterinaryService {
         );
 
         ownerRepository.save(owner);
+    }
+
+    @Transactional
+    public void registerCheckUp(Integer petId, LocalDate checkupDate) {
+        petRepository.findByPetId(petId).map(
+                pet -> {
+                    pet.registerVetCheck(checkupDate);
+                    return pet;
+                }
+        ).orElseThrow(() -> NotFoundException.withTypeAndId("PET", petId));
     }
 }
