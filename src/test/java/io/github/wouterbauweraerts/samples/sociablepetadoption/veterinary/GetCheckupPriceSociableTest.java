@@ -32,6 +32,7 @@ import static org.mockito.Mockito.when;
  */
 @ExtendWith(MockitoExtension.class)
 class GetCheckupPriceSociableTest {
+    static final Instant FIXED_TEST_INSTANT = LocalDateTime.of(2025, 10, 12, 11, 12, 13, 456).toInstant(ZoneOffset.UTC);
     static final Random RANDOM = new Random();
 
     @Mock
@@ -46,8 +47,7 @@ class GetCheckupPriceSociableTest {
 
     @BeforeEach
     void setUp() {
-        Instant instant = LocalDateTime.of(2025, 10, 12, 11, 12, 13, 456).toInstant(ZoneOffset.UTC);
-        clock = Clock.fixed(instant, ZoneId.systemDefault());
+        clock = Clock.fixed(FIXED_TEST_INSTANT, ZoneId.systemDefault());
 
         configProperties = TestVeterinaryCheckUpConfigProperties.testDefaults();
 

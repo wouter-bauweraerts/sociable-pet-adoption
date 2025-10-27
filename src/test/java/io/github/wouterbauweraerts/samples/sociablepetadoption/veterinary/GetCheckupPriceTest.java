@@ -7,7 +7,9 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
@@ -33,37 +35,24 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class GetCheckupPriceTest {
     static final Random RANDOM = new Random();
+    static final Instant FIXED_TEST_INSTANT = LocalDateTime.of(2025, 10, 12, 11, 12, 13, 456).toInstant(ZoneOffset.UTC);
 
     @Mock
     OwnerRepository ownerRepository;
 
-    @Mock
-    CheckupPriceCalculator checkupPriceCalculator;
+    @Spy
+    Clock clock = Clock.fixed(FIXED_TEST_INSTANT, ZoneId.systemDefault());
 
-    Clock clock;
-    VeterinaryCheckUpConfigProperties configProperties;
+    @Spy
+    VeterinaryCheckUpConfigProperties configProperties = TestVeterinaryCheckUpConfigProperties.testDefaults();
 
+    @InjectMocks
     VeterinaryService service;
 
-    /* TODO to make test compile again
+    /* TODO to make test run again
         - Add field @Mock CheckupPriceCalculator checkupPriceCalculator;
-        - Update @BeforeEach -> add checkupPriceCalculator in constructor call
         - add required mocks --> what are we actually testing???
      */
-
-    @BeforeEach
-    void setUp() {
-        Instant instant = LocalDateTime.of(2025, 10, 12, 11, 12, 13, 456).toInstant(ZoneOffset.UTC);
-        clock = Clock.fixed(instant, ZoneId.systemDefault());
-
-        configProperties = TestVeterinaryCheckUpConfigProperties.testDefaults();
-
-        service = new VeterinaryService(
-                ownerRepository,
-                null, null, null,
-                clock, configProperties
-        );
-    }
 
     @Nested
     class ExceptionFlows {
