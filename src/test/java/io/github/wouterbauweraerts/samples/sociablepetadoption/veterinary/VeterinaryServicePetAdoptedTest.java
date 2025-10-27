@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.modulith.test.ApplicationModuleTest;
 import org.springframework.modulith.test.Scenario;
-import org.springframework.test.context.jdbc.Sql;
 
 import java.time.Clock;
 import java.time.Duration;
@@ -27,7 +26,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.AFTER_TEST_METHOD;
 
 @ApplicationModuleTest(mode = ApplicationModuleTest.BootstrapMode.DIRECT_DEPENDENCIES)
 @Import(TestClockConfig.class)
@@ -48,7 +46,6 @@ class VeterinaryServicePetAdoptedTest {
     }
 
     @Test
-    @Sql(executionPhase = AFTER_TEST_METHOD, scripts = "cleaup.sql")
     void onPetAdoptedEvent_createsExpectedEntities(Scenario scenario) {
         OwnerResponse wouter = ownerService.addOwner(new AddOwnerRequest("Wouter"));
         PetResponse roxy = petService.addPet(new AddPetRequest("Roxy", "DOG"));
