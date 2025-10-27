@@ -51,12 +51,6 @@ class GetCheckupPriceSociableTest {
 
         configProperties = TestVeterinaryCheckUpConfigProperties.testDefaults();
 
-        CheckupPriceCalculator checkupPriceCalculator = new CheckupPriceCalculator(
-                configProperties,
-                new DiscountCalculator(configProperties),
-                new FineCalculatorStrategy(clock, new FixedValueFineCalculator(configProperties), new PercentageFineCalculator(configProperties))
-        );
-
         service = new VeterinaryService(
                 ownerRepository,
                 null, null, null,

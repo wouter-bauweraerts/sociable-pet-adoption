@@ -30,15 +30,21 @@ public class VeterinaryService {
 
     /* TODO demo:
         Uncomment CheckupPriceCalculator
-        Add constructor parameter (before clock)
+        Add constructor parameter
         Bind constructor parameter to field
         Replace implementation with method call to checkupPriceCalculator
-        Tests: GetCheckupPriceTest, GetCheckupPriceSociableTest, GetCheckupPriceUnitSocializerTest (no update required)
+        Checkout and run tests: GetCheckupPriceTest, GetCheckupPriceSociableTest, GetCheckupPriceUnitSocializerTest
      */
 
 //    private final CheckupPriceCalculator checkupPriceCalculator;
 
-    public VeterinaryService(OwnerRepository ownerRepository, PetRepository petRepository, OwnerService ownerService, PetService petService, Clock clock, VeterinaryCheckUpConfigProperties checkupConfiguration) {
+    public VeterinaryService(OwnerRepository ownerRepository,
+                             PetRepository petRepository,
+                             OwnerService ownerService,
+                             PetService petService,
+                             Clock clock,
+                             VeterinaryCheckUpConfigProperties checkupConfiguration
+    ) {
         this.ownerRepository = ownerRepository;
         this.petRepository = petRepository;
         this.ownerService = ownerService;

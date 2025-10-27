@@ -47,6 +47,7 @@ import static org.mockito.Mockito.when;
 @SociableTest
 class GetCheckupPriceUnitSocializerTest {
     static final Random RANDOM = new Random();
+    static final Instant FIXED_TIME_INSTANT = LocalDateTime.of(2025, 10, 12, 11, 12, 13, 456).toInstant(ZoneOffset.UTC);
 
     @TestSubject(typeResolvers = {
             @Resolve(forClass = OwnerMapper.class, use = OwnerMapperImpl.class),
@@ -59,7 +60,7 @@ class GetCheckupPriceUnitSocializerTest {
 
     @Predefined
     Clock clock = Clock.fixed(
-            LocalDateTime.of(2025, 10, 12, 11, 12, 13, 456).toInstant(ZoneOffset.UTC),
+            FIXED_TIME_INSTANT,
             ZoneId.systemDefault()
     );
     @Predefined
