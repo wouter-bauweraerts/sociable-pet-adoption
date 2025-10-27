@@ -1,7 +1,7 @@
 # sociable-pet-adoption
 Sample application illustrating the difference between solitary and sociable unit tests
 
-See [demo](./demo)
+See [demo](demo.md)
 
 ## Description
 Simple Spring-Boot REST API. Idea inspired by the spring pet clinic sample application.

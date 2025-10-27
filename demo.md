@@ -10,4 +10,4 @@ where we will investigate some different aspects:
 - Test readability
 - Test maintainability
 
-Check the **[comparison](./comparison) page** for more details.
+Check the **[comparison](comparison.md) page** for more details.
