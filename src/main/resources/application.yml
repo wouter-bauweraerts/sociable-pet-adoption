@@ -9,3 +9,17 @@ spring:
     hibernate:
       ddl-auto: create-drop
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+veterinary:
+  checkup:
+    price: 45
+    discount:
+      "2": 0.1
+      "5": 0.25
+    fines:
+      fixed:
+        1: 10
+        2: 15
+      percentage:
+        3: 0.5
+        4: 0.75

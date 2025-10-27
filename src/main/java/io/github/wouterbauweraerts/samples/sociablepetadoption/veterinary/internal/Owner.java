@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static jakarta.persistence.FetchType.EAGER;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -74,5 +75,15 @@ public class Owner {
     public void adoptPet(Pet pet) {
         this.pets.add(pet);
         pet.setOwner(this);
+    }
+
+    public Optional<Pet> findPet(Integer petId) {
+        return this.pets.stream()
+                .filter(pet -> pet.getPetId().equals(petId))
+                .findFirst();
+    }
+
+    public int getNumberOfPets() {
+        return this.pets.size();
     }
 }
