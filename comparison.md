@@ -1,15 +1,5 @@
 # Comparing Solitary and Sociable Tests
 
-## What will we see during the demo?
-The purpose of the demo is to show the power of **sociable testing**.
-I will demonstrate the differences between both solitary and sociable unit testing, 
-where we will investigate some different aspects:
-- Test setup
-- Test complexity
-- Test focus
-- Test readability
-- Test maintainability
-
 ## Key Differences
 ### Test setup
 - Solitary tests are very straightforward to set up. 
