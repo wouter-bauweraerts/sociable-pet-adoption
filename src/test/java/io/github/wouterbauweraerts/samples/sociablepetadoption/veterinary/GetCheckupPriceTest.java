@@ -45,20 +45,11 @@ class GetCheckupPriceTest {
 
     VeterinaryService service;
 
-//    @BeforeEach
-//    void setUp() {
-//        Instant instant = LocalDateTime.of(2025, 10, 12, 11, 12, 13, 456).toInstant(ZoneOffset.UTC);
-//        clock = Clock.fixed(instant, ZoneId.systemDefault());
-//
-//        configProperties = TestVeterinaryCheckUpConfigProperties.testDefaults();
-//
-//        service = new VeterinaryService(
-//                ownerRepository,
-//                null, null, null,
-//                checkupPriceCalculator,
-//                clock, configProperties
-//        );
-//    }
+    /* TODO to make test compile again
+        - Add field @Mock CheckupPriceCalculator checkupPriceCalculator;
+        - Update @BeforeEach -> add checkupPriceCalculator in constructor call
+        - add required mocks --> what are we actually testing???
+     */
 
     @BeforeEach
     void setUp() {

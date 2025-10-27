@@ -28,20 +28,15 @@ public class VeterinaryService {
     private final Clock clock;
     private final VeterinaryCheckUpConfigProperties checkupConfiguration;
 
-//    private final CheckupPriceCalculator checkupPriceCalculator;
+    /* TODO demo:
+        Uncomment CheckupPriceCalculator
+        Add constructor parameter (before clock)
+        Bind constructor parameter to field
+        Replace implementation with method call to checkupPriceCalculator
+        Tests: GetCheckupPriceTest, GetCheckupPriceSociableTest, GetCheckupPriceUnitSocializerTest (no update required)
+     */
 
-//    public VeterinaryService(
-//            OwnerRepository ownerRepository, PetRepository petRepository, OwnerService ownerService, PetService petService,
-//            CheckupPriceCalculator checkupPriceCalculator,
-//            Clock clock, VeterinaryCheckUpConfigProperties checkupConfiguration) {
-//        this.ownerRepository = ownerRepository;
-//        this.petRepository = petRepository;
-//        this.ownerService = ownerService;
-//        this.petService = petService;
-//        this.checkupPriceCalculator = checkupPriceCalculator;
-//        this.clock = clock;
-//        this.checkupConfiguration = checkupConfiguration;
-//    }
+//    private final CheckupPriceCalculator checkupPriceCalculator;
 
     public VeterinaryService(OwnerRepository ownerRepository, PetRepository petRepository, OwnerService ownerService, PetService petService, Clock clock, VeterinaryCheckUpConfigProperties checkupConfiguration) {
         this.ownerRepository = ownerRepository;

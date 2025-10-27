@@ -42,6 +42,8 @@ class GetCheckupPriceSociableTest {
 
     VeterinaryService service;
 
+    // TODO demo: instantiate CheckupPriceCalculator in @BeforeEach and add to constructor call
+
     @BeforeEach
     void setUp() {
         Instant instant = LocalDateTime.of(2025, 10, 12, 11, 12, 13, 456).toInstant(ZoneOffset.UTC);
@@ -58,7 +60,6 @@ class GetCheckupPriceSociableTest {
         service = new VeterinaryService(
                 ownerRepository,
                 null, null, null,
-//                checkupPriceCalculator,
                 clock, configProperties
         );
     }
