@@ -23,7 +23,7 @@
         <springdoc-openapi-starter-webmvc-ui.version>2.8.5</springdoc-openapi-starter-webmvc-ui.version>
         <instancio.version>5.5.1</instancio.version>
         <datafaker.version>2.5.1</datafaker.version>
-        <unit-socializer.version>1.1.0-SNAPSHOT</unit-socializer.version>
+        <unit-socializer.version>1.1.0</unit-socializer.version>
     </properties>
 
     <dependencyManagement>
