@@ -1,7 +1,7 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.pets.api;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import tools.jackson.databind.ObjectMapper;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.TestcontainersConfiguration;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.common.PetType;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.pets.PetResponse;
@@ -15,13 +15,13 @@ import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
+import tools.jackson.core.JacksonException;
 
 import java.util.List;
 import java.util.Optional;
@@ -127,7 +127,7 @@ class PetControllerTest {
                                         .contentType(APPLICATION_JSON)
                                         .content(objectMapper.writeValueAsString(req))
                         ).hasStatus(BAD_REQUEST);
-                    } catch (JsonProcessingException e) {
+                    } catch (JacksonException e) {
                         fail("Unexpected JsonProcessingException", e);
                     }
                 }

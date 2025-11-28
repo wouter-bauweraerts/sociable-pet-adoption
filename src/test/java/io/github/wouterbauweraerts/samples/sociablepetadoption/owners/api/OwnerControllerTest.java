@@ -1,6 +1,7 @@
 package io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import tools.jackson.databind.ObjectMapper;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.TestcontainersConfiguration;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.OwnerResponse;
 import io.github.wouterbauweraerts.samples.sociablepetadoption.owners.api.request.AddOwnerRequest;
@@ -14,7 +15,6 @@ import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.assertj.MockMvcTester;
